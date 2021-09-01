@@ -1,0 +1,135 @@
+
+8 - Render a list
+
+TodoItem.js   
+import React, { Component } from 'react';
+import './TodoItem.css';
+
+class TodoItem extends Component {
+    render() {
+        return (
+           <div className="TodoItem">
+                <p>{this.props.title}</p>         
+           </div>
+        ;)
+    }
+}
+export default TodoItem
+
+
+App.js   
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import TodoItem from './components/TodoItem';
+
+class App extends Component {
+  
+  constructor() {
+    
+    super();
+    this.todoItems = [     // Render a list
+      'đi về nhà 1',
+      'đi về nhà 2',
+      'đi về nhà 3',
+    ];
+  }
+ 
+  render() {
+    return (
+      <div className="App">
+        {
+          this.todoItems.map((item, index) => <TodoItem key={index} title={item} />)
+        }
+      </div>
+    );
+  }
+}
+export default App;  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10 - Dynamic class names
+
+
+TodoItem.js
+import React, { Component } from 'react';
+import './TodoItem.css';
+
+class TodoItem extends Component {
+    render() {
+        const { item } = this.props;
+        let className = 'TodoItem';
+        if(item.isComplete) {
+            className += 'TodoItem-complete'
+        }
+        return (
+            <div className={className}>
+                <p>{this.props.item.title}</p>         
+            </div>
+        )
+    }
+}
+
+export default TodoItem
+
+
+
+
+App.js
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import TodoItem from './components/TodoItem';
+
+class App extends Component {
+  
+  constructor() {
+    
+    super();
+    this.todoItems = [     // Render a list
+      { title:'đi về nhà 1', isComplete: true },
+      { title:'đi về nhà 2', isComplete: true},
+      { title:'đi về nhà 3'}
+    ];
+  }
+ 
+  render() {
+    return (
+      <div className="App">
+        {
+          this.todoItems.map((item, index) => <TodoItem key={index} item={item} />)
+        }
+      </div>
+    );
+  }
+}
+
+export default App;
