@@ -133,3 +133,110 @@ class App extends Component {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11 - Conditional rendering
+
+app.js
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import TodoItem from './components/TodoItem';
+
+class App extends Component {
+  
+  constructor() {
+    
+    super();
+    this.todoItems = [     // Render a list
+      { title:'đi về nhà 1', isComplete: true },
+      { title:'đi về nhà 2', isComplete: true},
+      { title:'đi về nhà 3'}
+    ];
+  }
+ 
+  render() {  
+    return <div className="App">
+        {this.todoItems.length > 0 && this.todoItems.map((item, index) => (
+            <TodoItem key={index} item={item} />
+        ))};
+        {this.todoItems.length === 0 && 'Nothing here'}
+      </div>;
+  }
+}
+
+export default App;
+
+
+
+
+
+
+todo.item.js
+import React, { Component } from 'react';
+import './TodoItem.css';
+
+class TodoItem extends Component {
+    render() {
+        const { item } = this.props;
+        let className = 'TodoItem';
+        if(item.isComplete) {
+            className += 'TodoItem-complete'
+        }
+        return (
+            <div className={className}>
+                <p>{this.props.item.title}</p>         
+            </div>
+        )
+    }
+}
+
+export default TodoItem
+
+
+
+todoitem.css
+
+.TodoItem{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    color: #4d4d4d;
+   
+}
+
+.TodoItem-complete {
+    text-decoration: line-through;
+    opacity: .3;    
+}
