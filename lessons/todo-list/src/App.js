@@ -22,12 +22,12 @@ class App extends Component { // components chỉ render() khi mà props thay đ
       const index = todoItems.indexOf(item);
       this.setState({
         todoItems: [
-          ...todoItems.slice(0, index),
+          ...todoItems.slice(0, index), // từ 0 đến index
           {
             ...item,
             isComplete: !isComplete
           },
-          ...todoItems.slice(index + 1)
+          ...todoItems.slice(index + 1)  // từ index đến cuối
         ]
       });
     }
