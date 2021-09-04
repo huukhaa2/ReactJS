@@ -1,30 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+export const CartContext = React.createContext();
 
-import './style.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+export class CartProvider extends Component {
+  constructor(props) {
+    super(props);
 
-import TopMenu from './components/TopMenu';
-import Products from './pages/Products';
-import { CartProvider } from './contexts/Cart';
+    this.state = {
+      cartItems: []
+    };
 
-const Index = () => <h2>Home</h2>;
+    this.addToCart = this.addToCart.bind(this);
+  }
 
-function App() {
-  return(
-    <CartProvider>
-      <Router>
-        <div className='App'>
-          <TopMenu></TopMenu>
-          <Route path='/' exact component={ Index } />
-          <Route path='/products/' exact component={ Products } />
-        </div>
-      </Router>
-    </CartProvider>
-  )
+  addToCart(product) {
+    console.log("Adding to cart", product);
+    this.setState({
+      cartItems: this.state.cartItems.concat(product)
+    });
+  }
+
+  render() {
+    return (
+      <CartContext.Provider
+        value={{
+          cartItems: this.state.cartItems,
+          addToCart: this.addToCart
+        }}
+      >
+        {this.props.children}
+      </CartContext.Provider>
+    );
+  }
 }
-
-const rootElement = document.getElementById('root');
-ReactDOM.render(<App />, rootElement);
