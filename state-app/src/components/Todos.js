@@ -1,71 +1,69 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import TodoItem from './TodoItem'
-import AddTodo from './AddTodo'
-import axios from 'axios'
+import React, { Fragment, useState, useEffect } from 'react';
+import TodoItem from './TodoItem';
+import AddTodo from './AddTodo';
+import axios from 'axios';
 
-
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid';
 
 const Todos = () => {
-  const [todosState, setTodosState] = useState([]) // trang thai ban dau
+  const [todosState, setTodosState] = useState([]); // trang thai ban dau
 
   useEffect(() => {
     const getTodos = async () => {
       try {
         const res = await axios.get(
           'https://jsonplaceholder.typicode.com/todos?_limit=10'
-        )
+        );
         // console.log(res.data)
-        setTodosState(res.data)
+        setTodosState(res.data);
       } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
       }
-    }
+    };
 
-    getTodos()
-  }, [])
+    getTodos();
+  }, []);
 
-  
-  const markComplete = id => {
-    const newTodos = todosState.map(todo => {
-      if (todo.id === id) todo.completed = !todo.completed
-      return todo
-    })
+  const markComplete = (id) => {
+    const newTodos = todosState.map((todo) => {
+      if (todo.id === id) todo.completed = !todo.completed;
+      return todo;
+    });
 
-    setTodosState(newTodos)
-  }
+    setTodosState(newTodos);
+  };
 
-  const deleteTodo = async id => {
+  const deleteTodo = async (id) => {
     try {
-      await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-      const newTodos = todosState.filter(todo => todo.id !== id)
-      setTodosState(newTodos)
+      await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+      const newTodos = todosState.filter((todo) => todo.id !== id);
+      setTodosState(newTodos);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
-  const addTodo = async title => {
+  const addTodo = async (title) => {
     try {
       const res = await axios.post(
         'https://jsonplaceholder.typicode.com/todos',
         {
           title,
-          completed: false
+          completed: false,
         }
-      )
-      console.log(res.data)
-      const newTodos = [...todosState, res.data]
-      setTodosState(newTodos)
+      );
+      console.log(res.data);
+      const newTodos = [...todosState, res.data];
+      setTodosState(newTodos);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
   return (
     <Fragment>
       <AddTodo addTodoFunc={addTodo} />
-      {todosState.map(todo => {
+      {todosState.map((todo) => {
         return (
           <TodoItem
             key={todo.id}
@@ -73,10 +71,10 @@ const Todos = () => {
             markCompleteFunc={markComplete}
             deleteTodoFunc={deleteTodo}
           />
-        )
+        );
       })}
     </Fragment>
-  )
-}
+  );
+};
 
-export default Todos
+export default Todos;

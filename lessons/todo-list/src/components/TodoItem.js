@@ -4,6 +4,7 @@ import './TodoItem.css';
 import checkImg from '../img/check.svg';
 import checkCompleteImg from '../img/check-complete.svg';
 
+// map(): de chuyen 1 array thanh 1 component thi co 2 tham so (va bat buoc phai co thang index => key(index))
 class TodoItem extends Component
 {
     render()
