@@ -8,6 +8,7 @@ export const todoReducer = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    // lay data
     case GET_TODOS:
       console.log('getting todos');
       const todos = localStorage.getItem('todos');
@@ -15,6 +16,7 @@ export const todoReducer = (state, action) => {
       // return state: bóc todos ra
       return state;
 
+    // luu data
     case SAVE_TODOS:
       console.log('saving todos');
       localStorage.setItem('todos', JSON.stringify(payload.todos));
